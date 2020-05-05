@@ -6,9 +6,9 @@ import com.android.countries.model.Country
 
 class CountryViewModel : ViewModel() {
 
-    private val countries = MutableLiveData<List<Country>>()
-    private val countryLoadError = MutableLiveData<Boolean>()
-    private val loading = MutableLiveData<Boolean>()
+    val countries = MutableLiveData<List<Country>>()
+    val countryLoadError = MutableLiveData<Boolean>()
+    val loading = MutableLiveData<Boolean>()
 
 
     fun refresh() {
