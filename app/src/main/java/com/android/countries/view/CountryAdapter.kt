@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.countries.R
 import com.android.countries.model.Country
+import com.android.countries.utilities.getProgressDrawable
+import com.android.countries.utilities.loadImage
 import kotlinx.android.synthetic.main.item_country.view.*
 
 class CountryAdapter(var countries:ArrayList<Country>): RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
@@ -29,9 +31,10 @@ class CountryAdapter(var countries:ArrayList<Country>): RecyclerView.Adapter<Cou
 
     inner class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        private val countryName = itemView.countryName
         fun bind(country: Country){
-            countryName.text = country.countryName
+            itemView.countryName.text = country.countryName
+            itemView.capital.text = country.capital
+            itemView.imageView.loadImage(country.flag,getProgressDrawable(itemView.context))
         }
     }
 }

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel : CountryViewModel
+    lateinit var viewModel: CountryViewModel
     private val countryAdapter = CountryAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,28 +27,33 @@ class MainActivity : AppCompatActivity() {
             adapter = countryAdapter
         }
 
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+            viewModel.refresh()
+        }
+
         observeViewModel()
     }
 
-    private fun observeViewModel(){
+    private fun observeViewModel() {
 
-        viewModel.countries.observe(this, Observer {countries->
+        viewModel.countries.observe(this, Observer { countries ->
             countries.let {
                 countryRecyclerview.visibility = View.VISIBLE
                 countryAdapter.updateCountries(it)
             }
         })
 
-        viewModel.countryLoadError.observe(this, Observer {isError->
+        viewModel.countryLoadError.observe(this, Observer { isError ->
             isError?.let {
-                errorText.visibility = if(it) View.VISIBLE else View.GONE
+                errorText.visibility = if (it) View.VISIBLE else View.GONE
             }
         })
 
-        viewModel.loading.observe(this, Observer {isLoading->
+        viewModel.loading.observe(this, Observer { isLoading ->
             isLoading?.let {
-                loader.visibility = if(it) View.VISIBLE else View.GONE
-                if(it){
+                loader.visibility = if (it) View.VISIBLE else View.GONE
+                if (it) {
                     errorText.visibility = View.GONE
                     countryRecyclerview.visibility = View.GONE
                 }
