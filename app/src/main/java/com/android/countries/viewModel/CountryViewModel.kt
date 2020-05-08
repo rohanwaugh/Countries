@@ -1,25 +1,29 @@
 package com.android.countries.viewModel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.android.countries.di.DaggerApiComponent
 import com.android.countries.model.CountriesService
 import com.android.countries.model.Country
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 class CountryViewModel : ViewModel() {
 
-    private val countriesService = CountriesService()
+    @Inject
+    lateinit var countriesService :CountriesService
     private val disposable = CompositeDisposable()
 
     val countries = MutableLiveData<List<Country>>()
     val countryLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
+    init {
+        DaggerApiComponent.create().inject(this)
+    }
 
     fun refresh() {
         fetchCountries()

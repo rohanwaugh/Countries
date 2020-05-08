@@ -1,6 +1,7 @@
 package com.android.countries.di
 
 import com.android.countries.model.CountriesAPI
+import com.android.countries.model.CountriesService
 import com.android.countries.utilities.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -19,5 +20,10 @@ class ApiModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // This will convert the data class into Observable objects similar to LiveData
             .build()
             .create(CountriesAPI::class.java)
+    }
+
+    @Provides
+    fun provideCountriesService() :CountriesService{
+        return CountriesService()
     }
 }
