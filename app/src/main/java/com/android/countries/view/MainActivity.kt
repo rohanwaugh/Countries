@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.countries.observe(this, Observer {countries->
             countries.let {
+                countryRecyclerview.visibility = View.VISIBLE
                 countryAdapter.updateCountries(it)
             }
         })

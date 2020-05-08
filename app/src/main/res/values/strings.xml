@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Countries</string>
     <string name="error_text">Something went wrong</string>
+    <string name="country_img_description">country image</string>
 </resources>
