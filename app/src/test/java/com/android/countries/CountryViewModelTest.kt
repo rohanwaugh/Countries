@@ -1,5 +1,6 @@
 package com.android.countries
 
+import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.android.countries.model.CountriesService
 import com.android.countries.model.Country
@@ -54,6 +55,17 @@ class CountryViewModelTest {
 
         Assert.assertEquals(2, countryViewModel.countries.value?.size)
         Assert.assertEquals(false, countryViewModel.countryLoadError.value)
+        Assert.assertEquals(false, countryViewModel.loading.value)
+    }
+
+    @Test
+    fun testCountriesFailure() {
+        testSingle = Single.error(Throwable())
+
+        `when`(countriesService.getCountries()).thenReturn(testSingle)
+        countryViewModel.refresh()
+
+        Assert.assertEquals(true, countryViewModel.countryLoadError.value)
         Assert.assertEquals(false, countryViewModel.loading.value)
     }
 
