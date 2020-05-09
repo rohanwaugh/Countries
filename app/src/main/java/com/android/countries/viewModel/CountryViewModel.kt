@@ -22,6 +22,7 @@ class CountryViewModel : ViewModel() {
     val loading = MutableLiveData<Boolean>()
 
     init {
+        // injected CountrisService dependency in this(CountryViewModel) class
         DaggerApiComponent.create().inject(this)
     }
 
@@ -29,6 +30,9 @@ class CountryViewModel : ViewModel() {
         fetchCountries()
     }
 
+    /*
+    *  function which will fetch countries from backend using Retrofit and RxJava
+    * */
     private fun fetchCountries() {
 
         loading.value = true
@@ -53,6 +57,9 @@ class CountryViewModel : ViewModel() {
         )
     }
 
+    /**
+     *  disposable object cleared
+     */
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

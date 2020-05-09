@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity() {
         observeViewModel()
     }
 
+    /*
+    *  function will observe all LiveData objects from ViewModel
+    * */
     private fun observeViewModel() {
 
         viewModel.countries.observe(this, Observer { countries ->

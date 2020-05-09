@@ -12,6 +12,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class ApiModule {
 
+    /*
+    * provide CountriesAPI dependency
+    * */
     @Provides
     fun provideCountriesApi():CountriesAPI{
         return Retrofit.Builder()
@@ -22,6 +25,9 @@ class ApiModule {
             .create(CountriesAPI::class.java)
     }
 
+    /*
+    * provide CountriesService dependency
+    * */
     @Provides
     fun provideCountriesService() :CountriesService{
         return CountriesService()

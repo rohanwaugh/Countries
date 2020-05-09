@@ -10,6 +10,7 @@ class CountriesService {
     lateinit var api: CountriesAPI
 
     init {
+        // injected CountriesAPI dependency in this(CountriesService) class
         DaggerApiComponent.create().inject(this)
     }
 
